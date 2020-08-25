@@ -1,22 +1,22 @@
 ---
-title: "LDpred2 Excercise"
+title: "LDpred2 Exercise"
 output:
   html_document:
     df_print: paged
   pdf_document: default
 ---
 
-This excercise generally follows the vignette by Florian Privé available online [**here**](https://privefl.github.io/bigsnpr/articles/LDpred2.html).
+This exercise generally follows the vignette by Florian Privé available online [**here**](https://privefl.github.io/bigsnpr/articles/LDpred2.html).
 
-The most relevant literature is [**Privé *et al.*, bioRxiv 2020**](https://doi.org/10.1101/2020.04.28.066720), which presents LDpred2. For more details on the LDpred method please see [**Vilhjálmsson *et al.*, AJHG 2015**](https://doi.org/10.1016/j.ajhg.2015.09.001). Furthermore the R packages `bigsnpr` and `bigstatr` are presented and extended in following publications [Privé *et al.*, Bioinformatics 2018](https://doi.org/10.1093/bioinformatics/bty185), [Privé *et al.*, Genetics 2019](https://www.genetics.org/content/212/1/65), [Privé *et al.*, AJHG 2019](https://doi.org/10.1016/j.ajhg.2019.11.001), [Privé *et al.*, Bioinformatics 2020](https://doi.org/10.1093/bioinformatics/btaa520).
+The most relevant literature is [**Privé *et al.*, bioRxiv 2020**](https://doi.org/10.1101/2020.04.28.066720), which presents LDpred2. For more details on the LDpred method please see [**Vilhjálmsson *et al.*, AJHG 2015**](https://doi.org/10.1016/j.ajhg.2015.09.001). Furthermore the R packages `bigsnpr` and `bigstatsr` are presented and extended in following publications [Privé *et al.*, Bioinformatics 2018](https://doi.org/10.1093/bioinformatics/bty185), [Privé *et al.*, Genetics 2019](https://www.genetics.org/content/212/1/65), [Privé *et al.*, AJHG 2019](https://doi.org/10.1016/j.ajhg.2019.11.001), [Privé *et al.*, Bioinformatics 2020](https://doi.org/10.1093/bioinformatics/btaa520).
 
 ## Prerequisites 
-There are several requirements for completing this excercise.  
+There are several requirements for completing this exercise.  
 
 1. R studio with R version \>3.3.
-2. R packages bigsnpr (and bigstatr). For most users executing the 
+2. R packages bigsnpr (and bigstatsr). For most users executing the 
 ` install.packages("bigsnpr") ` ensures this.
-3. The test dataset should be downloaded and unzipped.
+3. The test dataset should be downloaded and unzipped and stored in a directory called `tmp-data`.  You can find the data files [here](https://github.com/privefl/bigsnpr/raw/master/data-raw/public-data.zip).
 
 
 ## 1. Load and inspect genotype data 
@@ -33,7 +33,7 @@ library(viridis)
 
 Then we read from bed/bim/fam, it generates .bk and .rds files.  Make sure the data folder is in the working directory.  You can check the working directory using `getwd()` and change it using `setwd("your/working/directory")`.
 ```{r}
-setwd("/Users/au507860/Dropbox/Cloud_folder/Courses/DiabetesAcademy2020")
+setwd("/Users/au507860/Dropbox/Cloud_folder/Courses/DiabetesAcademy2020/DDA_2020_LDpred2")
 snp_readBed("tmp-data/public-data.bed")
 ```
 
@@ -253,7 +253,7 @@ AUCBoot(pred_inf, y[ind.test])
 In practice, we recommend to test multiple values for h2 and p. 
 ```{r}
 (h2_seq <- round(h2_est * c(0.7, 1, 1.4), 4))
-(p_seq <- signif(seq_log(1e-4, 1, length.out = 17), 2))
+(p_seq <- signif(seq_log(1e-4, 1, length.out = 12), 2))
 (params <- expand.grid(p = p_seq, h2 = h2_seq, sparse = c(FALSE, TRUE)))
 ```
 This takes several minutes if you do not have many cores
